@@ -45,6 +45,31 @@ func generateFileContent(gen *protogen.Plugin, file *protogen.File, g *protogen.
 	g.P("}")
 	g.P()
 
+
+	g.P(fmt.Sprintf("func NewClient(xclient %s) *Client {",
+		g.QualifiedGoIdent(rpcxClientPackage.Ident("XClient"))))
+	g.P("	cli := &Client {")
+	g.P("		xclient: xclient,")
+	g.P("	}")
+	g.P("	return cli")
+	g.P("}")
+	g.P()
+
+	g.P(fmt.Sprintf("func InitDefaultClient(xclient %s) {",
+		g.QualifiedGoIdent(rpcxClientPackage.Ident("XClient"))))
+	g.P("	defaultClient = &Client {")
+	g.P("		xclient: xclient,")
+	g.P("	}")
+	g.P("}")
+	g.P()
+
+	g.P(fmt.Sprintf("func SetDefaultClient(cli *Client) {"))
+	g.P("	defaultClient = cli")
+	g.P("}")
+	g.P()
+
+
+
 	g.P(fmt.Sprintf("func NewEtcdXClient(config EtcdClientConfig) (%s, error) {",
 		g.QualifiedGoIdent(rpcxClientPackage.Ident("XClient"))))
 	g.P(fmt.Sprintf("	discovery, err := %s(config.BasePath, config.ServicePath, config.EtcdList, nil)",
