@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3d92ac1f-8ab5-4edb-a4d5-5f37c2b82516" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpcx.go" beforeDir="false" afterPath="$PROJECT_DIR$/rpcx.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

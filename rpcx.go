@@ -179,7 +179,8 @@ func genService(gen *protogen.Plugin, file *protogen.File, g *protogen.Generated
 	g.P("	Port string                  `json:\"port\"`")
 	g.P("}")
 
-	g.P("func CreateEtcdDiscoveryServer(config ServerConfig, rpcService interface{}) error {")
+	g.P(fmt.Sprintf("func CreateEtcdDiscoveryServer(config ServerConfig, rpcService interface{}, plugins ...%s) error {",
+		g.QualifiedGoIdent(serverPackage.Ident("Plugin"))))
 	g.P(fmt.Sprintf("	s := %s()", g.QualifiedGoIdent(serverPackage.Ident("NewServer"))))
 	g.P(fmt.Sprintf("	plugin := &%s {", g.QualifiedGoIdent(serverpluginPackage.Ident("EtcdRegisterPlugin"))))
 	g.P(fmt.Sprintf("		ServiceAddress: %s(\"tcp@%%s:%%s\", config.PublishHost, config.PublishPort),",
@@ -193,6 +194,9 @@ func genService(gen *protogen.Plugin, file *protogen.File, g *protogen.Generated
 	g.P("		return err")
 	g.P("	}")
 	g.P("	s.Plugins.Add(plugin)")
+	g.P("	for _, plugin := range plugins {")
+	g.P("		s.Plugins.Add(plugin)")
+	g.P("	}")
 	g.P()
 	g.P("	if err := s.RegisterName(config.ServicePath, rpcService, \"\"); err != nil {")
 	g.P("		return err")
