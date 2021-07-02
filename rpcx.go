@@ -72,7 +72,7 @@ func generateFileContent(gen *protogen.Plugin, file *protogen.File, g *protogen.
 
 	g.P(fmt.Sprintf("func NewEtcdXClient(config EtcdClientConfig) (%s, error) {",
 		g.QualifiedGoIdent(rpcxClientPackage.Ident("XClient"))))
-	g.P(fmt.Sprintf("	discovery, err := %s(config.BasePath, config.ServicePath, config.EtcdList, nil)",
+	g.P(fmt.Sprintf("	discovery, err := %s(config.BasePath, config.ServicePath, config.EtcdList, false, nil)",
 		g.QualifiedGoIdent(rpcxEtcdClientPackage.Ident("NewEtcdDiscovery"))))
 	g.P("	if err != nil {")
 	g.P("		return nil, err")
